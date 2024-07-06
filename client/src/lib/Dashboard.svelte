@@ -1,8 +1,11 @@
 <script>
   import html2canvas from "html2canvas";
   import Mac from "./Mac.svelte";
+  import Iphone from "./iphone.svelte";
+  import Ipad from "./ipad.svelte";
+
   import axios from "axios";
-  import { capturedImage, url } from "../stores/store";
+  import { capturedImage, height, url, width, device } from "../stores/store";
   import { Search, Download, RotateCcw, House } from "lucide-svelte";
   import { Button, Dropdown, DropdownItem } from "flowbite-svelte";
   import { ChevronDownOutline } from "flowbite-svelte-icons";
@@ -11,7 +14,7 @@
   const downloadScreenshot = async () => {
     try {
       const response = await axios.get(
-        `${SERVER_URL}/api/screenshot?resX=1440&resY=900&outFormat=jpg&waitTime=200&isFullPage=false&dismissModals=false&url=${$url}`,
+        `${SERVER_URL}/api/screenshot?resX=${$width}&resY=${$height}&outFormat=jpg&waitTime=200&isFullPage=false&dismissModals=false&url=${$url}`,
 
         { responseType: "blob" }, // Ensure the response is treated as a blob
       );
@@ -50,7 +53,15 @@
   <div
     class="w-[74%] 2xl:w-[74%] h-full flex justify-center items-center border"
   >
-    <div class=""><Mac /></div>
+    <div class="">
+      {#if $device === "ipad"}
+        <Ipad />
+      {:else if $device === "iphone"}
+        <Iphone />
+      {:else}
+        <Mac />
+      {/if}
+    </div>
   </div>
   <div
     class="w-[22%] h-full bg-[#F7F7F7] flex flex-col p-5 2xl:p-7 justify-start items-end"
@@ -71,10 +82,10 @@
         /></Button
       >
       <Dropdown>
-        <DropdownItem>Dashboard</DropdownItem>
-        <DropdownItem>Settings</DropdownItem>
-        <DropdownItem>Earnings</DropdownItem>
-        <DropdownItem>Sign out</DropdownItem>
+        <DropdownItem on:click={() => device.set("mac")}>MacBook</DropdownItem>
+        <DropdownItem on:click={() => device.set("iphone")}>iPhone</DropdownItem
+        >
+        <DropdownItem on:click={() => device.set("ipad")}>iPad</DropdownItem>
       </Dropdown>
       <h1 class="text-2xl font-light text-left text-[#000000] mt-4">URL</h1>
       <div
@@ -133,7 +144,15 @@
     </h1>
   </div>
   <div class="h-[70%] w-full flex justify-center items-center border">
-    <div class=""><Mac /></div>
+    <div class="">
+      {#if $device === "ipad"}
+        <Ipad />
+      {:else if $device === "iphone"}
+        <Iphone />
+      {:else}
+        <Mac />
+      {/if}
+    </div>
   </div>
   <div
     class="h-[26%] w-full bg-[#F7F7F7] flex flex-col p-0 justify-evenly items-start"
