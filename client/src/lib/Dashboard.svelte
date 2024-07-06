@@ -82,10 +82,27 @@
         /></Button
       >
       <Dropdown>
-        <DropdownItem on:click={() => device.set("mac")}>MacBook</DropdownItem>
-        <DropdownItem on:click={() => device.set("iphone")}>iPhone</DropdownItem
+        <DropdownItem
+          on:click={() => {
+            device.set("mac");
+            url.set("");
+            capturedImage.set("");
+          }}>MacBook</DropdownItem
         >
-        <DropdownItem on:click={() => device.set("ipad")}>iPad</DropdownItem>
+        <DropdownItem
+          on:click={() => {
+            device.set("iphone");
+            url.set("");
+            capturedImage.set("");
+          }}>iPhone</DropdownItem
+        >
+        <DropdownItem
+          on:click={() => {
+            device.set("ipad");
+            url.set("");
+            capturedImage.set("");
+          }}>iPad</DropdownItem
+        >
       </Dropdown>
       <h1 class="text-2xl font-light text-left text-[#000000] mt-4">URL</h1>
       <div
