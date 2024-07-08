@@ -30,13 +30,18 @@
     }
   };
 
-  const downloadDivAsImage = () => {
+  const downloadDivAsImage = async () => {
+    if (!$capturedImage) {
+      await downloadScreenshot();
+    }
     html2canvas(document.getElementById("print")).then((canvas) => {
       const dataUrl = canvas.toDataURL("image/jpg");
       const downloadLink = document.createElement("a");
       downloadLink.href = dataUrl;
       downloadLink.download = "preview.jpg";
+      document.body.appendChild(downloadLink); // Ensure the link is in the document
       downloadLink.click();
+      document.body.removeChild(downloadLink); // Clean up
     });
   };
 </script>
@@ -118,6 +123,9 @@
           placeholder="https://insight-forge.vercel.app"
           class="bg-white shadow-lg border rounded-md text-sm 2xl:text-base p-2 h-12 w-full 2xl:w-[90%] font-light text-black text-right"
           bind:value={$url}
+          on:change={() => {
+            capturedImage.set("");
+          }}
         />
         <button
           class=" px-5 py-3 flex justify-end gap-5 h-fit w-[150px] xl:w-fit bg-[#ac3434] text-white rounded"
