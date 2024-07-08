@@ -39,9 +39,7 @@
       const downloadLink = document.createElement("a");
       downloadLink.href = dataUrl;
       downloadLink.download = "preview.jpg";
-      document.body.appendChild(downloadLink); // Ensure the link is in the document
       downloadLink.click();
-      document.body.removeChild(downloadLink); // Clean up
     });
   };
 </script>
