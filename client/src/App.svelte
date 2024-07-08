@@ -2,6 +2,9 @@
   import Navbar from "./lib/Navbar.svelte";
   import Hero from "./lib/Hero.svelte";
   import Dashboard from "./lib/Dashboard.svelte";
+  import { inject } from '@vercel/analytics';
+  inject();
+
 </script>
 
 <div

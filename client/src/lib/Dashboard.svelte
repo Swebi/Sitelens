@@ -85,6 +85,9 @@
         <DropdownItem
           on:click={() => {
             device.set("mac");
+            height.set(1440);
+            width.set(900);
+
             url.set("");
             capturedImage.set("");
           }}>MacBook</DropdownItem
@@ -92,17 +95,19 @@
         <DropdownItem
           on:click={() => {
             device.set("iphone");
+            height.set(844);
+            width.set(390);
             url.set("");
             capturedImage.set("");
           }}>iPhone</DropdownItem
         >
-        <DropdownItem
+        <!-- <DropdownItem
           on:click={() => {
             device.set("ipad");
             url.set("");
             capturedImage.set("");
           }}>iPad</DropdownItem
-        >
+        > -->
       </Dropdown>
       <h1 class="text-2xl font-light text-left text-[#000000] mt-4">URL</h1>
       <div
